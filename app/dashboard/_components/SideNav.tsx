@@ -1,5 +1,5 @@
 "use client"
-import { FileClock, Home, Settings, WalletCards, Share2 } from 'lucide-react'  // Added Share2 icon
+import { FileClock, Home, Settings, WalletCards, Share2 } from 'lucide-react'  // Share2 icon
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -16,7 +16,7 @@ function SideNav() {
         {
             name: 'Publish', // New "Publish" menu item
             icon: Share2,  // Icon for "Publish"
-            path: '/dashboard/publish'  // New route for the publish functionality
+            path: '/dashboard/publish'  // Path to the Publish page
         },
         {
             name: 'History',

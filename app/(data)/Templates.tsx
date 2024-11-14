@@ -59,7 +59,7 @@ export default  [
         ]
     },
     {
-        name: 'Youtube SEO Title',
+        name: 'Best SEO Title',
         desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
         category: 'Youtube Tools',
         icon: 'https://cdn-icons-png.flaticon.com/128/402/402075.png',
@@ -67,45 +67,24 @@ export default  [
         aiPrompt: 'Give me Best SEO optimized high ranked 5 title ideas bullet wise only bases on keywords and outline and give me result in HTML tags format',
         form: [
             {
-                label: 'Enter your youtube video topic keyowords',
+                label: 'Enter your blog video topic keyowords',
                 field: 'input',
                 name: 'keywords',
                 required:true
             },
             {
-                label: 'Enter youtube description Outline here',
+                label: 'Enter blog description Outline here',
                 field: 'textarea',
                 name: 'outline'
             }
         ]
 
     },
+    
     {
-
-        name: 'Youtube Description',
+        name: 'Blog Tags',
         desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
-        category: 'Youtube Tool',
-        icon: 'https://cdn-icons-png.flaticon.com/128/2111/2111748.png',
-        slug: 'youtube-description',
-        aiPrompt: 'Generate Youtube description with emoji under 4-5 lines based on topic and outline in rich text editor format',
-        form: [
-            {
-                label: 'Enter your blog topic/title',
-                field: 'input',
-                name: 'topic',
-                required:true
-            },
-            {
-                label: 'Enter youtube Outline here',
-                field: 'textarea',
-                name: 'outline'
-            }
-        ]
-    },
-    {
-        name: 'Youtube Tags',
-        desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
-        category: 'Youtube Tool',
+        category: 'Blog Tool',
         icon: 'https://cdn-icons-png.flaticon.com/128/4674/4674918.png',
         slug: 'youtube-tag',
 
@@ -113,13 +92,13 @@ export default  [
 
         form: [
             {
-                label: 'Enter your youtube title',
+                label: 'Enter your blog title',
                 field: 'input',
                 name: 'title',
                 required:true
             },
             {
-                label: 'Enter youtube video Outline here (Optional)',
+                label: 'Enter youtube blog Outline here (Optional)',
                 field: 'textarea',
                 name: 'outline'
             }
@@ -227,43 +206,3 @@ export default  [
            
         ]
     },
-    {
-        name: 'Write Code',
-        desc: 'AI Model to generate programming code in any language',
-        icon:'https://cdn-icons-png.flaticon.com/128/6062/6062646.png',
-        category: 'Coding',
-       
-        slug: 'write-code',
-        aiPrompt: 'Depends on user codeDescription write a code and give output in  in rich text editor format in code block ',
-        form: [
-            {
-                label: 'Enter description of code you want along with Programming Lang',
-                field: 'textarea',
-                name: 'codeDesscripton',
-                required:true
-            },
-           
-        ]
-    },
-    {
-        name: 'Explain Code',
-        desc: 'AI Model to explain programming code in any language',
-        icon:'https://cdn-icons-png.flaticon.com/128/8488/8488751.png',
-        category: 'Coding',
-       
-        slug: 'explain-code',
-        aiPrompt: 'Depends on user codeDescription explain code line by line and give output in  in rich text editor format in code block ',
-        form: [
-            {
-                label: 'Enter code which you want to understand',
-                field: 'textarea',
-                name: 'codeDesscripton',
-                required:true
-            },
-           
-        ]
-    },
-
-
-
-]
