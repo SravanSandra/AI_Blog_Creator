@@ -1,7 +1,7 @@
 // app/api/posts/[id]/like.ts
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db"; // Ensure this is the correct path to your db
-import { posts } from "@/lib/schema"; // Ensure this is the correct path to your schema
+import { db } from "@/utils/db"; // Ensure this is the correct path to your db
+import { posts } from "@/utils/schema"; // Ensure this is the correct path to your schema
 
 export async function POST(req: Request) {
   // Extract the post ID from the URL

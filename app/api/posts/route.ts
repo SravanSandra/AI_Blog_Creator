@@ -1,5 +1,5 @@
-import { db } from "@/lib/drizzle";
-import { posts } from "@/lib/schema";
+import { db } from "@/utils/drizzle";
+import { posts } from "@/utils/schema";
 
 // GET: Fetch all posts
 export async function GET(req: Request) {
