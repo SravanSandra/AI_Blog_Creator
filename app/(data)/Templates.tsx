@@ -79,8 +79,7 @@ export default  [
             }
         ]
 
-    },
-    
+    }, 
     {
         name: 'Blog Tags',
         desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
@@ -104,7 +103,6 @@ export default  [
             }
         ]
     },
-
     {
         name: 'Rewrite Article (Plagiarism Free)',
         desc: 'Use this tool to rewrite existing Article or Blog Post which can bypass AI detectors and also make it plagiarism free.',
