@@ -1,39 +1,42 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
-interface PublishBlogProps {
-    blogId: number;
-}
+export default function PublishBlog({ blogId }) {
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-const PublishBlog: React.FC<PublishBlogProps> = ({ blogId }) => {
-    const [isPublished, setIsPublished] = useState<boolean>(false);
-
-    const handlePublish = async () => {
+    const publishBlog = async () => {
+        setLoading(true);
         try {
             const response = await fetch('/api/publish', {
                 method: 'POST',
-                body: JSON.stringify({ id: blogId }),
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: blogId }), // Pass the blog ID
             });
+
             if (response.ok) {
                 const data = await response.json();
-                setIsPublished(true);
-                alert(`Blog published! You can view it at: /${data.slug}`);
+                alert(`Blog published! View it at: /${data.slug}`);
+                router.push(`/${data.slug}`); // Redirect to the published blog page
             } else {
                 alert("Failed to publish blog");
             }
         } catch (error) {
-            console.error("Error publishing blog:", error);
-            alert("An error occurred while publishing the blog.");
+            alert("An error occurred while publishing");
         }
+        setLoading(false);
     };
 
     return (
         <div>
-            <button onClick={handlePublish} disabled={isPublished}>
-                {isPublished ? "Published" : "Publish Blog"}
+            <button
+                onClick={publishBlog}
+                disabled={loading}
+            >
+                {loading ? "Publishing..." : "Publish Blog"}
             </button>
         </div>
     );
-};
-
-export default PublishBlog;
+}

@@ -1,35 +1,15 @@
-// pages/dashboard/blogs.tsx
+/import { useState } from "react";
+import PublishBlog from "../components/PublishBlog"; // Import the PublishBlog component
 
-import { useEffect, useState } from 'react';
-
-const PublishedBlogs = () => {
-    const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        async function fetchBlogs() {
-            const response = await fetch('/api/getPublishedBlogs');
-            const data = await response.json();
-            setBlogs(data);
-            setLoading(false);
-        }
-
-        fetchBlogs();
-    }, []);
-
-    if (loading) return <div>Loading...</div>;
+export default function BlogCreationPage() {
+    const [blogId, setBlogId] = useState(1); // Replace with the actual blog ID after creation
 
     return (
         <div>
-            <h1>Published Blogs</h1>
-            {blogs.map((blog) => (
-                <div key={blog.id}>
-                    <h2>{blog.formData}</h2>
-                    <a href={`/${blog.slug}`}>Read Blog</a>
-                </div>
-            ))}
+            <h1>Create Blog</h1>
+            {/* Display blog data here */}
+            {/* Assuming you already have form data or content for the blog */}
+            <PublishBlog blogId={blogId} /> {/* Pass the blog ID here */}
         </div>
     );
-};
-
-export default PublishedBlogs;
+}
