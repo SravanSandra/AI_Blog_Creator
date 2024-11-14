@@ -1,8 +1,7 @@
-// app/dashboard/_components/PostList.tsx
 import React, { useState, useEffect } from "react";
 
 const PostList = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
     // Fetch all posts from the backend
@@ -12,10 +11,11 @@ const PostList = () => {
   }, []);
 
   const handleLike = async (postId: string) => {
+    // Call the like API route
     await fetch(`/api/posts/${postId}/like`, {
       method: "POST",
     });
-    // Optionally, update the local state to reflect the like
+    // Update the local state to reflect the like
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
         post.id === postId ? { ...post, likes: post.likes + 1 } : post
@@ -24,12 +24,13 @@ const PostList = () => {
   };
 
   const handleComment = async (postId: string, comment: string) => {
+    // Call the comment API route
     await fetch(`/api/posts/${postId}/comment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ comment }),
     });
-    // Optionally, update the local state to reflect the new comment
+    // Update the local state to reflect the new comment
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
         post.id === postId ? { ...post, comments: [...post.comments, comment] } : post
@@ -58,7 +59,7 @@ const PostList = () => {
             <button onClick={() => handleShare(post)}>Share</button>
           </div>
           <div className="mt-4">
-            {post.comments.map((comment: string, idx: number) => (
+            {post.comments && post.comments.map((comment: string, idx: number) => (
               <p key={idx}>{comment}</p>
             ))}
           </div>
