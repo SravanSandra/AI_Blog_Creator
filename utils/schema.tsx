@@ -1,4 +1,4 @@
-import { boolean, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import { boolean, pgTable, serial, text, varchar, integer, array, timestamp } from "drizzle-orm/pg-core";
 
 export const AIOutput = pgTable('aiOutput', {
     id: serial('id').primaryKey(),
@@ -18,3 +18,12 @@ export const UserSubscription=pgTable('userSubscription',{
     paymentId:varchar('paymentId'),
     joinDate:varchar('joinData')
 })
+
+export const posts = pgTable("posts", {
+  id: integer("id").primaryKey().autoIncrement(),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  likes: integer("likes").default(0),
+  comments: array(text("comments")).default([]),
+  createdAt: timestamp("created_at").defaultNow(),
+});
