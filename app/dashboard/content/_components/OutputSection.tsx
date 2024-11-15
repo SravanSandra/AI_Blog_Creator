@@ -1,53 +1,66 @@
-import React, { useEffect, useRef } from 'react';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
-import { Copy, Share2 } from 'lucide-react'; // Share2 is the share icon
-import { Button } from '@/components/ui/button';
-import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon } from 'react-share';
+"use client";
+import React, { useState } from "react";
+import { TEMPLATE } from "../../_components/TemplateListSection";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Loader2Icon } from "lucide-react";
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton, FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon } from "react-share";
 
-interface Props {
-  aiOutput: string;
+interface PROPS {
+  selectedTemplate?: TEMPLATE;
+  generatedContent: string;
+  loading: boolean;
 }
 
-function OutputSection({ aiOutput }: Props) {
-  const editorRef: any = useRef();
+function OutputSection({ selectedTemplate, generatedContent, loading }: PROPS) {
+  const [isCopied, setIsCopied] = useState(false);
 
-  useEffect(() => {
-    const editorInstance = editorRef.current.getInstance();
-    editorInstance.setMarkdown(aiOutput);
-  }, [aiOutput]);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(generatedContent);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
+  };
+
+  const shareUrl = window.location.href; // Replace this with the dynamic content URL if needed
 
   return (
-    <div className="bg-white shadow-lg border rounded-lg">
-      <div className="flex justify-between items-center p-5">
-        <h2 className="font-medium text-lg">Your Result</h2>
-        <Button
-          className="flex gap-2"
-          onClick={() => navigator.clipboard.writeText(aiOutput)}
-        >
-          <Copy className="w-4 h-4" /> Copy
-        </Button>
-      </div>
-      <div className="flex gap-3 p-5">
-        {/* Social Media Share Buttons */}
-        <FacebookShareButton url={window.location.href} quote={aiOutput} className="text-blue-600">
-          <FacebookIcon size={32} round />
-        </FacebookShareButton>
-        <TwitterShareButton url={window.location.href} title={aiOutput} className="text-blue-400">
-          <TwitterIcon size={32} round />
-        </TwitterShareButton>
-        <LinkedinShareButton url={window.location.href} title={aiOutput} className="text-blue-700">
-          <LinkedinIcon size={32} round />
-        </LinkedinShareButton>
-      </div>
-      <Editor
-        ref={editorRef}
-        initialValue="Your result will appear here"
-        initialEditType="wysiwyg"
-        height="600px"
-        useCommandShortcut={true}
-        onChange={() => console.log(editorRef.current.getInstance().getMarkdown())}
+    <div className="p-5 shadow-md border rounded-lg bg-white">
+      {/* @ts-ignore */}
+      <Image
+        src={selectedTemplate?.icon}
+        alt="icon"
+        width={70}
+        height={70}
       />
+      <h2 className="font-bold text-2xl mb-2 mt-4 text-primary">{selectedTemplate?.name}</h2>
+      <p className="text-gray-500 text-sm">{selectedTemplate?.desc}</p>
+
+      <div className="mt-6">
+        <h3 className="font-bold text-lg mb-2">Generated Content</h3>
+        <div className="border p-4 rounded bg-gray-100">{generatedContent}</div>
+      </div>
+
+      <div className="mt-4 flex gap-2">
+        <Button onClick={handleCopy} className="py-2 px-4">
+          {isCopied ? "Copied!" : "Copy to Clipboard"}
+        </Button>
+        <div className="flex items-center gap-2">
+          <FacebookShareButton url={shareUrl} quote={generatedContent}>
+            <FacebookIcon size={32} round />
+          </FacebookShareButton>
+          <TwitterShareButton url={shareUrl} title={generatedContent}>
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+          <LinkedinShareButton url={shareUrl} summary={generatedContent}>
+            <LinkedinIcon size={32} round />
+          </LinkedinShareButton>
+          <WhatsappShareButton url={shareUrl} title={generatedContent}>
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+        </div>
+      </div>
+
+      {loading && <Loader2Icon className="animate-spin mt-4" />}
     </div>
   );
 }
