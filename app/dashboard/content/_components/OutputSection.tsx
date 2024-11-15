@@ -36,7 +36,7 @@ function OutputSection({ aiOutput }: Props) {
 
       {showShareOptions && (
         <div className="flex gap-2 p-3">
-          <FacebookShareButton url={window.location.href} quote={aiOutput}>
+          <FacebookShareButton url={window.location.href}>
             <FacebookIcon size={32} round />
           </FacebookShareButton>
           <TwitterShareButton url={window.location.href} title={aiOutput}>
