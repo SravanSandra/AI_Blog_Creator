@@ -1,7 +1,7 @@
 // outputsection.tsx
 "use client"
 import React from 'react'
-import { FaShareAlt } from 'react-icons/fa/index.esm'; // You can choose your desired icon
+import { FaShareAlt } from 'react-icons/fa'; 
 import { useState } from 'react';
 
 interface PROPS {
