@@ -3,7 +3,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { Copy, Share } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, TwitterIcon, LinkedinIcon } from 'react-share';
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappShareButton, RedditShareButton, TelegramShareButton, FacebookIcon, TwitterIcon, LinkedinIcon, WhatsappIcon, RedditIcon, TelegramIcon } from 'react-share';
 
 interface Props {
   aiOutput: string;
@@ -11,7 +11,7 @@ interface Props {
 
 function OutputSection({ aiOutput }: Props) {
   const editorRef = useRef<any>(null);
-  const [showShareOptions, setShowShareOptions] = useState(false); // State to toggle share options visibility
+  const [showShareOptions, setShowShareOptions] = useState(false);
 
   useEffect(() => {
     if (editorRef.current) {
@@ -34,9 +34,10 @@ function OutputSection({ aiOutput }: Props) {
         </div>
       </div>
 
+      {/* Social Media Share Options */}
       {showShareOptions && (
-        <div className="flex gap-2 p-3">
-          <FacebookShareButton url={window.location.href}>
+        <div className="flex gap-4 p-3 justify-center">
+          <FacebookShareButton url={window.location.href} quote={aiOutput}>
             <FacebookIcon size={32} round />
           </FacebookShareButton>
           <TwitterShareButton url={window.location.href} title={aiOutput}>
@@ -45,6 +46,15 @@ function OutputSection({ aiOutput }: Props) {
           <LinkedinShareButton url={window.location.href} summary={aiOutput}>
             <LinkedinIcon size={32} round />
           </LinkedinShareButton>
+          <WhatsappShareButton url={window.location.href} title={aiOutput}>
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+          <RedditShareButton url={window.location.href} title={aiOutput}>
+            <RedditIcon size={32} round />
+          </RedditShareButton>
+          <TelegramShareButton url={window.location.href} title={aiOutput}>
+            <TelegramIcon size={32} round />
+          </TelegramShareButton>
         </div>
       )}
 
