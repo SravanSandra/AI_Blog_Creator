@@ -1,7 +1,5 @@
-// outputsection.tsx
 "use client"
 import React from 'react'
-import { FaShareAlt } from 'react-icons/fa'; 
 import { useState } from 'react';
 
 interface PROPS {
@@ -12,24 +10,13 @@ function OutputSection({ aiOutput }: PROPS) {
 
     const [isCopied, setIsCopied] = useState(false);
 
-    const handleShareClick = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Generated Content',
-                text: aiOutput,
-                url: window.location.href,
-            })
-            .then(() => console.log('Content shared successfully'))
-            .catch((error) => console.error('Error sharing content:', error));
-        } else {
-            // Fallback to copying the text if Web Share API is not available
-            navigator.clipboard.writeText(aiOutput).then(() => {
-                setIsCopied(true);
-                setTimeout(() => setIsCopied(false), 2000); // Show 'Copied' message for 2 seconds
-            }).catch((error) => {
-                console.error('Error copying text:', error);
-            });
-        }
+    const handleCopyClick = () => {
+        navigator.clipboard.writeText(aiOutput).then(() => {
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 2000); // Show 'Copied' message for 2 seconds
+        }).catch((error) => {
+            console.error('Error copying text:', error);
+        });
     };
 
     return (
@@ -39,8 +26,8 @@ function OutputSection({ aiOutput }: PROPS) {
                 <p className='text-gray-500'>{aiOutput}</p>
             </div>
             <div className="mt-4 flex justify-end">
-                <button onClick={handleShareClick} className="p-2 rounded-full bg-primary text-white">
-                    <FaShareAlt className="text-lg" />
+                <button onClick={handleCopyClick} className="p-2 rounded-full bg-primary text-white">
+                    Copy
                     {isCopied && <span className="text-xs ml-2 text-green-600">Copied!</span>}
                 </button>
             </div>
