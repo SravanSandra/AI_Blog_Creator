@@ -27,33 +27,38 @@ const OutputSection = ({ aiOutput }: Props) => {
   const editorRef = useRef<any>(null); // Properly typed ref
 
   useEffect(() => {
-    // Debug: Check if aiOutput is passed correctly
-    console.log('Updated aiOutput:', aiOutput);
-
-    // Safely set editor content if the instance exists
     if (editorRef.current) {
       const editorInstance = editorRef.current.getInstance();
-      editorInstance.setMarkdown(aiOutput || ''); // Fallback to empty string
+      if (aiOutput) {
+        editorInstance.setMarkdown(aiOutput);
+      } else {
+        editorInstance.setMarkdown(''); // Clear if no output
+      }
     }
-  }, [aiOutput]); // Trigger this whenever aiOutput changes
+  }, [aiOutput]); // Trigger only when aiOutput changes
 
   return (
     <div className="bg-white shadow-lg border rounded-lg">
+      {/* Header Section */}
       <div className="flex justify-between items-center p-5">
         <h2 className="font-medium text-lg">Your Result</h2>
         <div className="flex gap-2">
+          {/* Copy Button */}
           <Button
             onClick={() => navigator.clipboard.writeText(aiOutput)}
             className="flex gap-2"
           >
             <Copy className="w-4 h-4" /> Copy
           </Button>
+
+          {/* Share Button */}
           <Button onClick={() => setShowShareOptions(!showShareOptions)} className="flex gap-2">
             <Share2 className="w-4 h-4" /> Share
           </Button>
         </div>
       </div>
 
+      {/* Share Options */}
       {showShareOptions && (
         <div className="p-3 flex justify-end gap-3">
           <TwitterShareButton url={window.location.href} title={aiOutput}>
@@ -77,6 +82,7 @@ const OutputSection = ({ aiOutput }: Props) => {
         </div>
       )}
 
+      {/* Editor Section */}
       <Editor
         ref={editorRef}
         initialValue="Your result will appear here"
