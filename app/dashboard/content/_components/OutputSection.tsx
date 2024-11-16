@@ -7,16 +7,14 @@ import {
   EmailShareButton,
   WhatsappShareButton,
   RedditShareButton,
-  TelegramShareButton
-} from 'react-share'; // Import from react-share
-import {
+  TelegramShareButton,
   TwitterIcon,
   LinkedinIcon,
   EmailIcon,
   WhatsappIcon,
   RedditIcon,
-  TelegramIcon
-} from 'react-share'; // Import the icons
+  TelegramIcon,
+} from 'react-share';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
@@ -26,12 +24,18 @@ interface Props {
 
 const OutputSection = ({ aiOutput }: Props) => {
   const [showShareOptions, setShowShareOptions] = useState(false);
-  const editorRef: any = useRef();
+  const editorRef = useRef<any>(null); // Properly typed ref
 
   useEffect(() => {
-    const editorInstance = editorRef.current.getInstance();
-    editorInstance.setMarkdown(aiOutput);
-  }, [aiOutput]);
+    // Debug: Check if aiOutput is passed correctly
+    console.log('Updated aiOutput:', aiOutput);
+
+    // Safely set editor content if the instance exists
+    if (editorRef.current) {
+      const editorInstance = editorRef.current.getInstance();
+      editorInstance.setMarkdown(aiOutput || ''); // Fallback to empty string
+    }
+  }, [aiOutput]); // Trigger this whenever aiOutput changes
 
   return (
     <div className="bg-white shadow-lg border rounded-lg">
@@ -50,49 +54,35 @@ const OutputSection = ({ aiOutput }: Props) => {
         </div>
       </div>
 
-      {/* Show Share Options when the button is clicked */}
       {showShareOptions && (
         <div className="p-3 flex justify-end gap-3">
-          {/* Twitter Share Button */}
           <TwitterShareButton url={window.location.href} title={aiOutput}>
             <TwitterIcon size={32} round />
           </TwitterShareButton>
-
-          {/* LinkedIn Share Button */}
           <LinkedinShareButton url={window.location.href} title={aiOutput}>
             <LinkedinIcon size={32} round />
           </LinkedinShareButton>
-
-          {/* Email Share Button */}
           <EmailShareButton url={window.location.href} subject="Check this out!" body={aiOutput}>
             <EmailIcon size={32} round />
           </EmailShareButton>
-
-          {/* WhatsApp Share Button */}
           <WhatsappShareButton url={window.location.href} title={aiOutput}>
             <WhatsappIcon size={32} round />
           </WhatsappShareButton>
-
-          {/* Reddit Share Button */}
           <RedditShareButton url={window.location.href} title={aiOutput}>
             <RedditIcon size={32} round />
           </RedditShareButton>
-
-          {/* Telegram Share Button */}
           <TelegramShareButton url={window.location.href} title={aiOutput}>
             <TelegramIcon size={32} round />
           </TelegramShareButton>
         </div>
       )}
 
-      {/* Output Generation Box */}
       <Editor
         ref={editorRef}
         initialValue="Your result will appear here"
         initialEditType="wysiwyg"
         height="600px"
         useCommandShortcut={true}
-        onChange={() => console.log(editorRef.current.getInstance().getMarkdown())}
       />
     </div>
   );
