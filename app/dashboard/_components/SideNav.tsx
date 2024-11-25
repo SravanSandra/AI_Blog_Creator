@@ -14,7 +14,7 @@ function SideNav() {
             path: '/dashboard'
         },
         {
-            name: 'Publish', // New "Publish" menu item
+            name: 'Published', // New "Publish" menu item
             icon: Share2,  // Icon for "Publish"
             path: '/dashboard/publish'  // Path to the Publish page
         },
